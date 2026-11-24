@@ -1,0 +1,11 @@
+# secrets — never commit
+client_secret*.json
+token*.json
+.env
+# python
+__pycache__/
+*.pyc
+.venv/
+# runtime
+instance/
+docs/video/frames/
