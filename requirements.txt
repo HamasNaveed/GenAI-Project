@@ -1,0 +1,14 @@
+flask>=3.0
+# real Google Classroom mode
+google-api-python-client>=2.100
+google-auth-oauthlib>=1.2
+python-pptx>=1.0
+python-docx>=1.1
+pypdf>=4.0
+# optional: real LLM (set ANTHROPIC_API_KEY)
+anthropic>=0.70
+pydantic>=2
+# deliverable builders (docs/)
+pillow>=10
+imageio>=2.34
+imageio-ffmpeg>=0.5
