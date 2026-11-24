@@ -203,7 +203,7 @@ def _generate(instruction, task, chunks):
 
 
 # ---------------------------------------------------------------- 5. study tools
-_FORMULA = re.compile(r"[A-Za-z]\(?p?\)? = [^.]+")
+_FORMULA = re.compile(r"\b[A-Z](?:\(p\))? = .+?(?=\.\s|\.$|$)")
 
 
 def study_tool(tool, course_id, exam, index, syllabus):
@@ -240,7 +240,7 @@ def _mock_guide(chunks):
     if formulas:
         md += "### Key formulas\n" + "\n".join(f"- `{f}`" for f in formulas) + "\n\n"
     md += "### Likely exam questions\n" + "\n".join(
-        f"- Explain {c['title'].lower()} with an example. [{i + 1}]" for i, c in enumerate(chunks[:: max(1, len(chunks) // 4)]))
+        f"- Explain {c['title'].rstrip('?').lower()} with an example. [{i + 1}]" for i, c in enumerate(chunks[:: max(1, len(chunks) // 4)]))
     return {"markdown": md}
 
 
