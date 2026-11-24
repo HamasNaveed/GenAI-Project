@@ -223,7 +223,7 @@ s = new("When the AI is wrong: detect it, show it, recover", "Failure handling",
         notes="Walk through each row. The principle: we never hide uncertainty. Every failure has a detection signal and a visible, safe response.")
 fails = [("Post mislabelled", "confidence < 0.6", "⚠ “Unsure” badge; student relabels in one click; syllabus map rebuilt"),
          ("Syllabus not detected", "no exam entry for course", "Study tools refuse to guess which lectures; ask student to tag the post"),
-         ("Question not in material", "top retrieval score < threshold", "“I could not find this in your course material.”"),
+         ("Question not in material", "low score or < 50% term coverage", "“I could not find this in your course material.”"),
          ("Hallucinated detail", "citations + faithfulness eval", "Every claim links to its slide so the student can verify"),
          ("LLM / API outage", "exception or refusal", "Falls back to offline extractive engine; no crash")]
 for j, h in enumerate(["What goes wrong", "How we detect it", "What the student sees"]):

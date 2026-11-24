@@ -9,6 +9,7 @@ from classmind import classroom, mock_data, pipeline
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY") or secrets.token_hex(32)
 os.environ.setdefault("OAUTHLIB_INSECURE_TRANSPORT", "1")  # localhost only; use HTTPS in production
+os.environ.setdefault("OAUTHLIB_RELAX_TOKEN_SCOPE", "1")  # user may untick a scope on Google's consent screen
 
 # ponytail: single in-process store (one user at a time); per-user DB + shared per-course index for multi-user
 STORE = {}

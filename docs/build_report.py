@@ -147,7 +147,7 @@ doc.add_heading("4. When the AI is wrong", level=1)
 table(["Failure", "Detection", "Response"], [
     ["Post mislabelled", "Confidence < 0.6", "⚠ badge; student relabels; syllabus map rebuilt; correction logged"],
     ["Syllabus missed", "No exam entry for course", "Study tools refuse to guess and say so; student can relabel the post"],
-    ["Retrieval miss / off-topic", "Top BM25 score below threshold", "Answer \"I could not find this in your course material\""],
+    ["Retrieval miss / off-topic", "Low BM25 score, or evidence covers < 50% of question terms", "Answer \"I could not find this in your course material\""],
     ["Hallucinated claim", "Citations shown; faithfulness eval", "Every claim links to its slide so the student can verify"],
     ["LLM/API failure", "Exception or refusal stop reason", "Falls back to extractive mock engine; no crash"],
 ], [3.5, 4.8, 8.7])
@@ -157,7 +157,7 @@ doc.add_heading("5. Security and Privacy Analysis", level=1)
 p("Assets: students' Google OAuth tokens, course material (teacher copyright), chat history, the OAuth client secret "
   "and the LLM API key. Trust boundaries: browser ↔ app, app ↔ Google APIs, app ↔ LLM provider.")
 table(["Threat (STRIDE)", "Risk", "Mitigation"], [
-    ["Spoofing: stolen session / OAuth token", "Attacker reads a student's Classroom", "Random Flask secret key, server-side session; tokens never written to disk; HTTPS + secure cookies in production; short-lived access tokens"],
+    ["Spoofing: stolen session / OAuth token", "Attacker reads a student's Classroom", "Random Flask secret key, signed session cookie; tokens never written to disk; HTTPS + secure cookies in production; short-lived access tokens"],
     ["Elevation: over-broad scopes", "App could modify coursework", "Only *.readonly scopes requested (classroom + drive.readonly); no write scopes exist in code"],
     ["Information disclosure: client secret / API key leak", "Impersonation of app, cost abuse", "client_secret*.json and .env git-ignored; loaded from file/env var; never logged or shown in UI"],
     ["Tampering: prompt injection in posts/slides", "Malicious text steers the LLM", "Sources passed as numbered data; system prompt tells the model to ignore instructions inside sources; output is plain text, no tool calls"],

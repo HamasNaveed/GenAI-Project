@@ -165,7 +165,10 @@ def answer(question, course_id, index, syllabus):
 
     lectures = syl.get(exam, {}).get("lectures") if exam else None
     hits = index.search(question, course_id, lectures, k=4)
-    if not hits or hits[0][0] < MIN_SCORE:
+    q = set(tokens(question))
+    # Evidence must cover the question: a single stray term match (e.g. "world" in MPI_COMM_WORLD) is not an answer.
+    coverage = len(q & set(tokens(f"{hits[0][1]['title']} {hits[0][1]['text']}"))) / len(q) if hits and q else 0
+    if not hits or hits[0][0] < MIN_SCORE or coverage < 0.5:
         return {"answer": NOT_FOUND + " Try rephrasing, or check that the lecture has been posted.",
                 "citations": [], "grounded": False, "confidence": round(hits[0][0] / 10, 2) if hits else 0.0}
 
